@@ -1,0 +1,46 @@
+[project]
+name = "xlsm-mcp-server"
+version = "0.1.0"
+description = "Servidor MCP para manipulación de archivos Excel con macros (.xlsm)"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "mcp>=1.2.0",
+    "openpyxl>=3.1.2"
+]
+[[project.authors]]
+name = "Orlando Ospino H"
+email = "orlando1979@outlook.com"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project.scripts]
+xlsm-mcp-server = "xlsm_mcp.__main__:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/xlsm_mcp"]
+
+[tool.hatch.build]
+packages = ["src/xlsm_mcp"]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+    "black>=23.0.0",
+    "isort>=5.0.0",
+    "mypy>=1.0.0"
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = "test_*.py"
+python_classes = "Test*"
+python_functions = "test_*"
+addopts = "--cov=xlsm_mcp"
+
+[tool.coverage.run]
+source = ["src/xlsm_mcp"]
+omit = ["tests/*"]

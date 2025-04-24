@@ -1,6 +1,8 @@
 # 📊 Servidor MCP para archivos Excel con macros (.xlsm)
 
-Este servidor implementa el Model Context Protocol (MCP) para manipular archivos Excel que contienen macros (.xlsm). Utiliza el protocolo stdio para la comunicación, lo que permite integrarse fácilmente con clientes MCP como Claude.
+**Autor:** Orlando Ospino (orlando2019)
+
+Este servidor implementa el Model Context Protocol (MCP) para manipular archivos Excel que contienen macros (.xlsm). Utiliza el protocolo stdio para la comunicación, lo que permite integrarse fácilmente con clientes MCP como Claude Desktop, Cursor o Windsurf.
 
 ## 🌟 ¿Qué es MCP?
 
@@ -13,26 +15,59 @@ MCP (Model Context Protocol) es un protocolo que permite a los modelos de lengua
 - Gestión de hojas (crear, eliminar, renombrar)
 - Listar y obtener información de macros VBA
 - Aplicar formato a rangos de celdas
+- Compatible con Python 3.10+
+- Integración sencilla con entornos virtuales y clientes MCP modernos
 
 ## 🔧 Instalación
+
+### Usando pip
 
 ```bash
 pip install xlsm-mcp-server
 ```
 
+### Usando uv (recomendado)
+
+```bash
+uv venv
+.venv\Scripts\activate
+uv pip install -r requirements.txt
+```
+
 ## 📝 Uso
 
-### Configuración para Claude
+### Ejecución directa
 
-Agrega a tu configuración de Claude:
+```bash
+python -m xlsm_mcp
+```
+O, si usas un entorno virtual:
+```bash
+.venv\Scripts\python.exe -m xlsm_mcp
+```
+
+### Configuración para Claude Desktop, Cursor o Windsurf
+
+Agrega a tu configuración (por ejemplo, `settings.json`):
 
 ```json
 "mcpServers": {
   "xlsm": {
     "command": "python",
-    "args": ["-m", "xlsm_mcp"]
+    "args": ["-m", "xlsm_mcp"],
+    "transport": "stdio"
   }
 }
+```
+- Puedes omitir `"transport": "stdio"` en algunos clientes, pero es recomendable dejarlo para máxima compatibilidad.
+- Si usas un entorno virtual, reemplaza `"python"` por la ruta a tu ejecutable Python.
+
+### Argumentos avanzados
+
+Puedes agregar argumentos personalizados en la sección `"args"` según lo requiera tu servidor, por ejemplo:
+
+```json
+"args": ["-m", "xlsm_mcp", "--log-level", "DEBUG"]
 ```
 
 ### 🛠️ Herramientas disponibles
@@ -79,7 +114,7 @@ Las contribuciones son bienvenidas. Por favor, abre un issue o pull request en e
 
 ## 👨‍💻 Autor
 
-Desarrollado por Orlando Ospino ([@OrlandoOspino](https://github.com/orlando2019))
+Desarrollado por Orlando Ospino ([@Orlando_Ospino](https://github.com/orlando2019))
 
 ## 📄 Licencia
 
